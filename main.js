@@ -11,7 +11,7 @@ function SearchReceive(data) {
     price = price.replace(",", "");
     price = price.replace("$", "");
     quantity = parseInt(document.getElementById("quantity").value)
-    price = parseFloat(price) / (quantity - 1);
+    price = parseFloat(price) / (quantity - 1);                     //I dont want one item taking up too much space
     var bottomprice = data.results[data.results.length - 1].price;
     bottomprice = bottomprice.replace(",", "");
     bottomprice = bottomprice.replace("$", "");
@@ -46,7 +46,7 @@ function BuildSets() {
 function FindSets(resultindex, setslot, currentset, size, money) {
     //arguements passed:where we are in the results, where we are in the set, how big the set needs to get, money we have left
     var cost;
-    if (resultindex >= items.length || sets.length > 10000)
+    if (resultindex >= items.length || sets.length > 100000)
         return;
     if (setslot > size) {
         sets[sets.length] = currentset;
