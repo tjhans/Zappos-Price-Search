@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="main.js"></script>
+</head>
+<body>
+    <a href="http://api.zappos.com/CoreValue/random" title="Core Value">Does this work?</a>
+    <button onclick="StartSearch()">here goes nothing</button>
+    <div id="test"></div>
+    <input type="text" value="boots" placeholder="Search Term" id="term" />
+    <input type="text" value="0" id="page" onkeypress="return isNumber(event)" />
+    <br/>
+    <input type="text" value="3" id="quantity" onkeypress="return isNumber(event)" />
+    <input type="text" value="150" id="price" onkeypress="return isNumber(event)" />
+    <div id="status"></div>
+    <div id="set0"></div>
+</body>
+</html>
