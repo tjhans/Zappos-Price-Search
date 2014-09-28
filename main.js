@@ -49,7 +49,7 @@ function FindSets(resultindex, setslot, currentset, size, money) {
     if (resultindex >= items.length || sets.length > 10000)
         return;
     if (setslot > size) {
-        sets = sets.concat(currentset);
+        sets[sets.length] = currentset;
         return;
     }
     //check if item[resultindex] fits
@@ -62,11 +62,11 @@ function FindSets(resultindex, setslot, currentset, size, money) {
         var next;
         clone[0] = clone[0] + parseFloat(cost);
         clone = clone.concat(items[resultindex]);
-        next = Math.floor(Math.random() * 10) + resultindex;
+        next = 1 + resultindex;
         FindSets(next, setslot + 1, clone, size, money - cost);
     }
     //advance the index and call again until we hit the end
-    FindSets(Math.floor(Math.random() * 10) + resultindex, setslot, currentset, size, money);
+    FindSets(1 + resultindex, setslot, currentset, size, money);
 }
 
 function ShowSets() {
@@ -74,17 +74,27 @@ function ShowSets() {
     var currentdiv;
     var newhead;
     document.getElementById("status").innerHTML = "Showing Results.";
-    for (i = 0; i < 4; i++) {
-        next = Math.floor(Math.random() * sets.length);
-        next -= next % 4;
-        console.log(next);
-        currentdiv = document.getElementById("set0");
-        currentdiv.appendChild(document.createElement("hr"));
-        for (j = 1; j<4; j++) {
+    if (sets.length == 0) {
+        document.getElementById("set0").innerHTML = "<h1>No Sets Found</h1>"
+        return;
+    }
+    sets = sets.sort(function (a, b) { return b[0] - a[0] });
+    currentdiv = document.getElementById("set0");
+    currentdiv.innerHTML = "";
+    for (i = 1; i < 5; i++) {
+    currentdiv.appendChild(document.createElement("hr"));
+        next = i;
+        pricehead = document.createElement("h2")
+        pricehead.innerHTML = "This set costs $" + sets[next][0] + '.';
+        currentdiv.appendChild(pricehead);
+        for (j = 1; j < sets[0].length; j++) {
             setitem = document.createElement("a");
-            setitem.href = sets[next + j].productURL;
-            setitem.innerHTML = sets[next + j].productName + " - " + sets[next + j].price;
+            setitem.href = sets[next][j].productUrl;
+            setitem.innerHTML = sets[next][j].productName + " - " + sets[next][j].price;
+            itempic = document.createElement("img");
+            itempic.src = sets[next][j].thumbnailImageUrl;
             currentdiv.appendChild(setitem);
+            currentdiv.appendChild(itempic);
             currentdiv.appendChild(document.createElement("br"));
         }
     }
